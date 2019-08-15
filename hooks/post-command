@@ -8,7 +8,7 @@ echo "BUILDKITE_PARALLEL_JOB_COUNT: $BUILDKITE_PARALLEL_JOB_COUNT"
 
 parallel_cache_key=""
 if [[ "${BUILDKITE_PLUGIN_CACHE_PARALLEL_CACHE:-false}" =~ (true|on|1) ]] ; then
-  parallel_cache_key=${BUILDKITE_PARALLEL_JOB:""}
+  parallel_cache_key=${BUILDKITE_PARALLEL_JOB:-""}
 fi
 if [[ "${BUILDKITE_PLUGIN_CACHE_DEBUG:-false}" =~ (true|on|1) ]] ; then
   set -x
