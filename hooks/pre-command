@@ -2,10 +2,6 @@
 # shellcheck disable=SC2001
 set -euo pipefail
 
-echo $BUILDKITE_PLUGIN_CACHE_S3_PROFILE
-echo "BUILDKITE_PARALLEL_JOB: $BUILDKITE_PARALLEL_JOB"
-echo "BUILDKITE_PARALLEL_JOB_COUNT: $BUILDKITE_PARALLEL_JOB_COUNT"
-
 parallel_cache_key=""
 if [[ "${BUILDKITE_PLUGIN_CACHE_PARALLEL_CACHE:-false}" =~ (true|on|1) ]] ; then
   parallel_cache_key=${BUILDKITE_PARALLEL_JOB:-""}
@@ -36,7 +32,6 @@ if [[ -n "${BUILDKITE_PLUGIN_CACHE_CACHE_KEY:-}" ]] ; then
       echo ":aws: :amazon-s3: sync ${cache_key}"
 
       sync_options=${BUILDKITE_PLUGIN_CACHE_SYNC_OPTIONS:-}
-      echo "sync_options: $sync_options"
       bucket="${BUILDKITE_PLUGIN_CACHE_S3_BUCKET_NAME}/${BUILDKITE_ORGANIZATION_SLUG}/${BUILDKITE_PIPELINE_SLUG}/${cache_key}"
 
       aws s3 sync "s3://${bucket}/" . --profile="${BUILDKITE_PLUGIN_CACHE_S3_PROFILE}" $sync_options
