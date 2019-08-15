@@ -56,6 +56,8 @@ if [[ -n "${BUILDKITE_PLUGIN_CACHE_CACHE_KEY:-}" ]] ; then
 	else
             echo "--- :aws: :amazon-s3: sync ${path}"
             sync_options=${BUILDKITE_PLUGIN_CACHE_SYNC_OPTIONS:-}
+            echo "sync_options: $sync_options"
+            echo aws s3 sync "${path}" "s3://${bucket}/${path}/" --profile="${BUILDKITE_PLUGIN_CACHE_S3_PROFILE}" --delete $sync_options
             aws s3 sync "${path}" "s3://${bucket}/${path}/" --profile="${BUILDKITE_PLUGIN_CACHE_S3_PROFILE}" --delete $sync_options
 	fi
     done
