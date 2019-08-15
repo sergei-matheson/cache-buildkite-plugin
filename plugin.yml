@@ -11,6 +11,8 @@ configuration:
       type: string
     sync_options:
       type: string
+    parallel_cache:
+      type: boolean
     paths:
       type: [ string, array ]
     env:
